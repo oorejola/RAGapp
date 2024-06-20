@@ -16,21 +16,35 @@ Implementation Details
 
 ARAG GUI utilizes cutting-edge large language models (LLMs) to power its functionality:
 
-* **GPT-3.5-turbo**: Serves as the underlying agents, processing user queries and generating responses for each document.
+* **GPT-3.5-turbo**: Serves as the underlying LLM acting as the agents, processing user queries and generating responses for each document.
 * **LlamaIndex**: Provides the core functionalities for interacting with the document corpus, enabling efficient retrieval and indexing.
 
 ## Usage
 
-1) Running the Application:
+1) Clone the repository:
+  ```python
+  git clone https://github.com/oorejola/RAGapp.git
+  ```
+2) Add OpenAI API key:
+  * Open the `main.py` file and update the line
+    ```python
+    os.environ["OPENAI_API_KEY"] = "sk-..."
+    ```
+3) Running the Application:
 
 ```python
 python main.py
 ```
-2) Using the GUI:
-
-* Launch the application using main.py.
-* Enter queries or messages in the GUI input field.
-* The application retrieves relevant information and generates responses using ARAG.
-
-3) Documents:
+4) Load documents to query:
   * Add documents you want to query to `/docs/`. (As a place holder there are currently LLM papers on SelfRAG, CoT, etc.)
+  * Currently only `.pdf` files are supported.
+
+  * 
+5) Using the GUI:
+
+  * Launch the application using main.py.
+  * Enter queries or messages in the GUI input field.
+  * Click the submit button
+  * The application retrieves relevant information and generates responses using ARAG.
+
+
