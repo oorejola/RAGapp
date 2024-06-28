@@ -15,7 +15,7 @@ from llama_index.core.objects import ObjectIndex
 from llama_index.core.tools import QueryEngineTool, ToolMetadata
 from llama_index.llms.openai import OpenAI
 from llama_index.agent.openai import OpenAIAgent
-from llama_index.core.node_parser import SentenceSplitter
+from llama_index.core.node_parser import SemanticSplitterNodeParser
 from llama_index.embeddings.openai import OpenAIEmbedding
 
 
@@ -44,7 +44,10 @@ def build_agents_and_query_engines(documents: list) -> tuple:
             - agents: A dictionary mapping document names to agents.
             - query_engines: A dictionary mapping document names to query engines.
     """
-    node_parser = SentenceSplitter()
+
+    embed_model = OpenAIEmbedding(model="text-embedding-ada-002")
+    node_parser = SemanticSplitterNodeParser(buffer_size=1, breakpoint_percentile_threshold=95, embed_model=embed_model)
+
     agents = {}
     query_engines = {}
 
