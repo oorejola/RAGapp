@@ -45,7 +45,7 @@ def build_agents_and_query_engines(documents: list) -> tuple:
             - query_engines: A dictionary mapping document names to query engines.
     """
 
-    embed_model = OpenAIEmbedding(model="text-embedding-ada-002")
+    embed_model = OpenAIEmbedding(model="text-embedding-3-small")
     node_parser = SemanticSplitterNodeParser(buffer_size=1, breakpoint_percentile_threshold=95, embed_model=embed_model)
 
     agents = {}
@@ -93,7 +93,7 @@ def build_agents_and_query_engines(documents: list) -> tuple:
             ),
         ]
 
-        function_llm = OpenAI(model="gpt-3.5-turbo")
+        function_llm = OpenAI(model="gpt-4o-mini-2024-07-18")
         agent = OpenAIAgent.from_tools(
             query_engine_tools,
             llm=function_llm,
@@ -127,8 +127,8 @@ def rag_response(prompt: str) -> str:
 # Initialization block
 
 
-Settings.llm = OpenAI(temperature=0, model="gpt-3.5-turbo")
-Settings.embed_model = OpenAIEmbedding(model="text-embedding-ada-002")
+Settings.llm = OpenAI(temperature=0, model="gpt-4o-mini-2024-07-18")
+Settings.embed_model = OpenAIEmbedding(model="text-embedding-3-small")
 
 documents = get_docs_names("docs")
 
@@ -153,7 +153,7 @@ obj_index = ObjectIndex.from_objects(all_tools, index_cls=VectorStoreIndex)
 
 top_agent = OpenAIAgent.from_tools(
     tool_retriever=obj_index.as_retriever(similarity_top_k=3),
-    llm=OpenAI(model="gpt-3.5-turbo"),
+    llm=OpenAI(model="gpt-4o-mini-2024-07-18"),
     system_prompt=(
         "You are an agent designed to answer queries about a set of given documents. "
         "Please always use the tools provided to answer a question. Do not rely on prior knowledge."
